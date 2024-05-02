@@ -1,0 +1,36 @@
+CREATE TABLE public.sensors (
+	sensor_id int GENERATED ALWAYS AS IDENTITY NOT NULL,
+	sensor_name varchar(31) NOT NULL,
+	CONSTRAINT sensor_pk PRIMARY KEY (sensor_id)
+);
+CREATE TABLE public.measurements_type (
+	type_id int GENERATED ALWAYS AS IDENTITY NOT NULL,
+	type_name varchar(31) NULL,
+	type_units char(4) NULL,
+	CONSTRAINT measurements_type_pk PRIMARY KEY (type_id)
+);
+CREATE TABLE public.sensors_measurements (
+	sensor_id int NULL,
+	type_id int NULL,
+	measurment_formula varchar(255) NULL
+);
+CREATE TABLE public.meteostations (
+	station_id int GENERATED ALWAYS AS IDENTITY NOT NULL,
+	station_name varchar NOT NULL,
+	station_longitude numeric(5, 2) NOT NULL,
+	station_latitude numeric(5, 2) NOT NULL,
+	CONSTRAINT meteostations_pk PRIMARY KEY (station_id)
+);
+CREATE TABLE public.meteostations_sensors (
+	station_inventory_number char(15) AS IDENTITY NOT NULL,
+	station_id integer NOT NULL,
+	sensor_id integer NOT NULL,
+	added_ts timestamp NOT NULL,
+	removed_ts timestamp NOT NULL,
+);
+CREATE TABLE public.measurements (
+	sensor_inventory_number char(15) NULL,
+	measurement_value numeric(17, 2) NULL,
+	measurement_ts timestamp NULL,
+	measurement_type int NULL
+);
